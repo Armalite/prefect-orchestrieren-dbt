@@ -14,4 +14,6 @@ def run_dbt():
 
 flow = Flow("dbt-transformations", tasks=[output_config, run_dbt])
 
-flow.run()
+flow.register(project_name="beautiful-test")
+
+#flow.run()
