@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: beautiful-dbt-test
+spec:
+  schedule: "0 0 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: dbt-runner-container
+            image: dbt-runner
+            env:
+              - name: DBT_PACKAGE_URL # Artifactory url for where the DBT project folder is packaged
+                value: ""
+              - name: DBT_PACKAGE_TYPE # Artifactory url type (leave this as artifactory)
+                value: "github"
+              - name: DBT_COMMAND # The bash script to execute from within the DBT project folder.
+                value: "dbt deps --profiles-dir . && dbt compile --profiles-dir ." # this shell script has dbt run commands defined inside it
+
+          imagePullPolicy: Always
+          restartPolicy: OnFailure
