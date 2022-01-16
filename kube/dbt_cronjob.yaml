@@ -13,11 +13,19 @@ spec:
             image: dbt-runner
             env:
               - name: DBT_PACKAGE_URL # Artifactory url for where the DBT project folder is packaged
-                value: ""
+                value: "https://github.com/Armalite/yummy-dummy-dbt/"
               - name: DBT_PACKAGE_TYPE # Artifactory url type (leave this as artifactory)
                 value: "github"
               - name: DBT_COMMAND # The bash script to execute from within the DBT project folder.
                 value: "dbt deps --profiles-dir . && dbt compile --profiles-dir ." # this shell script has dbt run commands defined inside it
+              - name: DBT_PATH
+                value: "dbt_tester"
+              - name: DBT_TARGET
+                value: "admin"
+              - name: DBT_ROLE
+                value: "DBT_ROLE"
+              - name: DBT_ACCOUNT
+                value: "ag64214.ap-southeast-2"
 
           imagePullPolicy: Always
           restartPolicy: OnFailure

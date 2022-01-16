@@ -14,7 +14,7 @@ def k8s_hello_task():
     logger = prefect.context.get("logger")
     logger.info("Hello, Beautiful Kubernetes!")
 
-flow = Flow("k8s-greetings", run_config=KubernetesRun(), tasks=[k8s_hello_task,k8s_job_run_task])
+flow = Flow("k8s-greetings", run_config=KubernetesRun(), tasks=[k8s_job_run_task])
 
 flow.run()
 #flow.register(project_name="beautiful-test")
